@@ -1,0 +1,331 @@
+
+---------------
+Title: Short Course in R: 
+Lesson: 1.2: Vectors and Strings in R
+Date: FEB2021
+Author: Jason Gregoire
+Contact: jason.gregoire@nps.edu
+---------------
+
+
+# 1.2: Vectors and Strings in R
+
+This lesson focuses on:
+
+* Vector Basics: sequencing, length, subsets, index, sorting, and arithmetic
+* String Basics: concatenation, formatting, counting, cases, and substrings
+
+## Vectors
+
+`Vectors` are the most basic R data objects. 
+There are **six** types of *atomic* vectors.
+
+* *logical*
+* *integer*
+* *double*
+* *complex*
+* *character*
+* *raw*
+
+Multi-element Vectors can be easily made through built-in sequence processes:
+
+### Sequences
+```{R}
+# Create a sequence from 6.6 to 12.6 with `:`
+v <- 6.6:12.6
+print(v)
+```
+
+```{R}
+# Create vector with `seq()` from 5 to 9 increment by 0.4 
+print(seq(5, 9, by = 0.4))
+```
+
+### The `c()` function
+
+```{R}
+# Create a vector with the `c()`
+# Note: logical and numeric values are coerced to characters
+s <- c('apple','red',5,TRUE)
+print(s)
+```
+
+## Basic vector actions  
+### Vector length
+
+```{R}
+# Length of a vector
+a<-c(4,5,1,3,4,5)
+print(length(a))
+```
+
+### Vector subsetting
+
+```{R}
+# Create a vector subset
+a<-c(4,5,1,3,4,8,12,18,1)
+print(a[3])
+# Create a vector slice from the 3rd to the 5th element
+print(a[3:6])
+```
+
+### Vector Indexing
+Elements of a vector are accessed using indexing. The `[ ]` brackets are used for indexing. 
+Indexing starts with position 1 in R, **not zero**. Giving a negative value in the index drops that element from result.
+`TRUE`, `FALSE` or `0` and `1` can also be used for indexing.
+
+```{R}
+# 'Positional' indexing
+t <- c("Sun","Mon","Tue","Wed","Thurs","Fri","Sat")
+u <- t[c(2,3,6)]
+print(u)
+```
+
+```{R}
+# 'Logical' indexing
+v <- t[c(TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE)]
+print(v)
+```
+
+```{R}
+# 'Negative' indexing
+x <- t[c(-2,-5)]
+print(x)
+```
+
+```{R}
+# '0/1' (FALSE/TRUE) indexing
+y <- t[c(0,0,0,0,0,0,1)]
+print(y)
+```
+
+### Vector element sorting
+Elements in a vector can be sorted using `sort()` 
+
+```{R}
+# Sort the elements of the vector
+v <- c(3,8,4,5,0,11, -9, 304)
+sort.result <- sort(v)
+print(sort.result)
+```
+
+```{R}
+# Reverse order sort 
+revsort.result <- sort(v, decreasing = TRUE)
+print(revsort.result)
+```
+
+```{R}
+# Character vectors sort 
+v <- c("Red","Blue","yellow","violet")
+sort.result <- sort(v)
+print(sort.result)
+```
+
+```{R}
+# Reverse order character sort
+revsort.result <- sort(v, decreasing = TRUE)
+print(revsort.result)
+```
+
+### Vector Arithmetic
+Vectors of the same length can be:
+
+  * Added 
+  * Subtracted 
+  * Multiplied 
+  * Divided 
+
+**NOTE**: The result is a vector
+
+```{R}
+v1 <- c(3,8,4,5,0,11)
+v2 <- c(4,11,0,8,1,2)
+```
+
+```{R}
+# Vector addition
+add.result <- v1+v2
+print(add.result)
+```
+
+```{R}
+# Vector subtraction
+sub.result <- v1-v2
+print(sub.result)
+```
+
+```{R}
+# Vector multiplication
+multi.result <- v1*v2
+print(multi.result)
+```
+
+```{R}
+# Vector division
+divi.result <- v1/v2
+print(divi.result)
+```
+
+**Note**: If we apply arithmetic operations to two vectors of unequal length, then the elements of the shorter vector are 'recycled' to complete the operation.
+
+```{R}
+v1 <- c(3,8,4,5,0,11)
+v2 <- c(4,11)
+add.result <- v1+v2
+print(add.result)
+sub.result <- v1-v2
+print(sub.result)
+```
+
+## Strings
+Any value written within a pair of *'single quote'* (`''`) or *"double quotes"* (`""`) in R is treated as a `string`. 
+
+String construction rules:
+
+* String are defined with `''` or `""`; *they can not be mixed*
+	+ `""` can be inserted into a string starting and ending with `''`
+	+ `''` can be inserted into a string starting and ending with `""`
+	+ `""` can not be inserted into a string starting and ending with `""`
+	+ `''` can not be inserted into a string starting and ending with `''`
+
+*Valid Strings*
+
+```{R}
+a <- 'Start and end with single quote'
+print(a)
+```
+
+```{R}
+b <- "Start and end with double quotes"
+print(b)
+```
+
+```{R}
+c <- "single quote' in between double quotes"
+print(c)
+```
+
+```{R}
+d <- 'Double quotes" in between single quote'
+print(d)
+```
+
+
+## Basic string actions   
+
+### Concatenating strings
+Many strings in R are combined using `paste()`
+
+*syntax*: `paste(..., sep = " ", collapse = NULL)`
+
+* `...` represents any number of arguments to be combined.
+* `sep` represents any separator between the arguments. It is optional.
+* `collapse` is used to eliminate the space in between two strings. But not the space within two words of one string.
+
+```{R}
+a <- "Hello"
+b <- 'How'
+c <- "are you? "
+print(paste(a,b,c))
+print(paste(a,b,c, sep = "-"))
+print(paste(a,b,c, sep = "", collapse = ""))
+```
+
+### String formating
+
+Numbers and strings can be formatted to a specific style using `format()`
+
+*syntax*: `format(x, digits, nsmall, scientific, width, justify = c("left", "right", "centre", "none"))` 
+
+* `x` is the vector input.
+* `digits` is the total number of digits displayed.
+* `nsmall` is the minimum number of digits to the right of the decimal point.
+* `scientific` is set to TRUE to display scientific notation.
+* `width` indicates the minimum width to be displayed by padding blanks in the beginning.
+* `justify` is the display of the string to left, right or center.
+
+```{R}
+# Total number of digits displayed
+result <- format(23.123456789, digits = 9)
+print(result)
+```
+
+```{R}
+# Display numbers in scientific notation
+result <- format(c(6, 13.14521), scientific = TRUE)
+print(result)
+```
+
+```{R}
+# The minimum number of digits to the right of the decimal point
+result <- format(23.47, nsmall = 5)
+print(result)
+```
+
+```{R}
+# Format treats everything as a string
+result <- format(6)
+print(result)
+```
+
+```{R}
+# Numbers are padded with blank in the beginning for width
+result <- format(13.7, width = 6)
+print(result)
+```
+
+```{R}
+# Left justify strings
+result <- format("Hello", width = 8, justify = "l")
+print(result)
+```
+
+```{R}
+# Justify string with center
+result <- format("Hello", width = 8, justify = "c")
+print(result)
+```
+
+### Counting string characters
+The function `nchar()` counts the number of characters in a string 
+
+```{R}
+result <- nchar("Count the number of characters")
+print(result)
+```
+
+### Changing cases
+There are built-in functions in R to change the case of Strings in R
+
+* `toupper()` 
+* `tolower()` 
+
+```{R}
+# Upper case
+result <- toupper("Changing To Upper")
+print(result)
+```
+
+```{R}
+# Lower case
+result <- tolower("Changing To Lower")
+print(result)
+```
+
+### Computing a string substring
+To get a sub-string of a string use `substring()` 
+
+*syntax*: `substring(x,first postion,last postion)`
+
+```{R}
+# Extract characters from 5th to 7th position
+result <- substring("Extract", 5, 7)
+print(result)
+```
+
+**As always for all matters R, see the online documentation for additional details**
+
+*For a list of all course source materials and references, please see the Course GitHub Repo `Readme.md`*  
+
+## Next lesson: Lists, Arrays, Matrices, Arrays, Factors, & Data Frames in R

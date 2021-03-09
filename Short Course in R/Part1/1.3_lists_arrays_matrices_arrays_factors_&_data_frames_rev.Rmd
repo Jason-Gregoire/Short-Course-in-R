@@ -1,0 +1,539 @@
+---------------
+Title: Short Course in R: 
+Lesson: 1.3: Lists, Arrays, Matrices, Arrays, Factors, & Data Frames in R
+Date: FEB2021
+Author: Jason Gregoire
+Contact: jason.gregoire@nps.edu
+---------------
+
+# 1.3: Lists, Arrays, Matrices, Arrays, Factors, & Data Frames in R
+Now that you are familiar with simple R objects Vectors and Strings, this lesson provides an overview of the remaining and more complex R objects. 
+
+* `Lists`
+* `Arrays`
+* `Matrices`
+* `Arrays`
+* `Factors`
+* `Data Frames`
+
+## Lists
+
+Lists are R objects containing elements of different types such as numbers, strings, matrix, functions, vectors and another lists. 
+
+A List in R is created using `list()`
+
+```{R}
+# Example list containing: strings, numbers, vectors, and a logical value.
+list_data <- list("Red", "Green", c(21,32,11), TRUE, 51.23, 119.1)
+print(list_data)
+```
+
+### Naming list elements
+List elements can be assigned names.
+
+```{R}
+# Create a list containing vector, matrix, and list
+list_data <- list(c("Jan","Feb","Mar"), matrix(c(3,9,5,1,-2,8), nrow = 2),
+list("green",12.3))
+# List element names
+names(list_data) <- c("1st Quarter", "A_Matrix", "A Inner list") 
+print(list_data)
+```
+
+### Accessing list elements
+Elements of the list can be accessed by the element index or if named, the element name. 
+
+```{R}
+# Access the first element of the list
+print(list_data[1])
+```
+
+```{R}
+# Access the third element. 
+print(list_data[3])
+```
+
+```{R}
+# Access the list element using its assigned name.
+print(list_data$A_Matrix)
+```
+
+## Manipulating list elements
+We can **add**, **delete** and **update** list elements.
+ 
+**Note**: You can only add and delete elements at the end of a list, but **any** element can be updated.
+
+```{R}
+# Add element at the end of the list
+list_data[4] <- "New element"
+print(list_data[4])
+```
+
+```{R}
+# Remove the last element
+list_data[4] <- NULL
+print(list_data[4])
+```		
+
+```{R}
+# Update the 3rd Element
+list_data[3] <- "updated element"
+print(list_data[3])
+```
+
+### Merging lists
+You can merge many lists into a single list by placing all the lists inside one `list()` function
+
+```{R}
+list1 <- list(1,2,3)
+list2 <- list("Sun","Mon","Tue")
+merged.list <- c(list1,list2)	# Merge lists
+print(merged.list)
+```
+
+### Converting a list to a vector
+A list can be converted to a vector.
+All the arithmetic operations available on vectors can be applied on the converted list elements 
+
+To conduct the conversion us `unlist()`, which takes the list as input and produces a vector.
+
+```{R}
+list1 <- list(1:5)
+list2 <- list(10:14)
+print(c(list1, list2))
+```
+
+```{R}
+v1 <- unlist(list1) # Convert list1 to a vectors
+v2 <- unlist(list2) # Convert list2 to a vectors
+print(v1)
+print(v2)
+result <- v1+v2 # Now add the vectors
+print(result)
+```
+
+## Arrays
+
+Arrays are R objects that can store data in more than two dimensions. For example an array of dimension (2, 3, 4) creates 4 rectangular matrices each with 2 rows and 3 columns. Arrays can store only `numeric` data.
+
+An array is created using the `array()` function. It takes vectors as input and uses the values in the dim parameter to create an array.
+
+```{R}
+# Create two vectors of different lengths
+vector1 <- c(5,9,3)
+vector2 <- c(10,11,12,13,14,15)
+# Create an array from the vectors
+result <- array(c(vector1,vector2), dim = c(3,3,2))
+print(result)
+```
+
+### Naming columns and rows in R Array
+
+```{R}
+# Create two vectors of different lengths
+vector1 <- c(5,9,3)
+vector2 <- c(10,11,12,13,14,15)
+column.names <- c("COL1","COL2","COL3")
+row.names <- c("ROW1","ROW2","ROW3")
+matrix.names <- c("Matrix1","Matrix2")
+result <- array(c(vector1,vector2),dim = c(3,3,2),dimnames = list(row.names,column.names, matrix.names))
+print(result)
+```
+
+### Accessing array elements
+
+```{R}
+# Create an example array
+vector1 <- c(5,9,3)
+vector2 <- c(10,11,12,13,14,15)
+column.names <- c("COL1","COL2","COL3")
+row.names <- c("ROW1","ROW2","ROW3")
+matrix.names <- c("Matrix1","Matrix2")
+result <- array(c(vector1,vector2),dim = c(3,3,2),dimnames = list(row.names, column.names, matrix.names))
+print(result[3,,2]) # Print the third row of the second matrix of the array.
+print(result[1,3,1]) # Print the element in the 1st row and 3rd column of the 1st matrix.
+print(result[,,2]) # Print the 2nd Matrix.
+```
+
+### Calculations across array elements
+Calculations across array elements using apply()
+
+*syntax*: `apply(x, margin, fun)` 
+
+* `x` = an array, including a matrix
+* `margin` = data set name
+* `fun` = function
+
+```{R}
+# Use apply() to calculate the sum of the rows across all the matrices
+result <- apply(new.array, c(1), sum) 
+print(result)
+```
+
+## Factors
+
+Factors are R objects used to categorize data and store it as levels. Factors can store both strings and integers. Factors can be very useful for columns that have limited unique values. 
+
+Common examples include "Male, "Female", "yes", "No", TRUE, FALSE etc. 
+Create factors using factor(), which takes a vector as its input. 
+
+### Create a vector as input
+
+```{R}
+data <- c("East","West","East","North","North","East","West","West","West","East","North")
+
+print(data)
+print(is.factor(data))
+```
+
+```{R}
+# Apply the factor function.
+factor_data <- factor(data)
+
+print(factor_data)
+print(is.factor(factor_data))
+```
+
+### Factors in data frames
+When a data frame is created that includes a column of text data, R treats the text column as categorical data and automatically creates factors on it.
+
+```{R}
+# Create a data frame
+height <- c(132,151,162,139,166,147,122)
+weight <- c(48,49,66,53,67,52,40)
+gender <- c("male","male","female","female","male","female","male")
+
+input_data <- data.frame(height,weight,gender)
+
+print(input_data)
+# Test if the gender column is a factor
+print(is.factor(input_data$gender)) 
+# Print the gender column so see the levels
+print(input_data$gender) 
+```
+
+### Generating factor levels
+
+Factor levels can be generated using `gl()`
+
+*Syntax*: `gl(n, k, labels)`
+
+* n is a integer giving the number of levels.
+* k is a integer giving the number of replications.
+* labels is a vector of labels for the resulting factor levels.
+
+```{R}
+v <- gl(3, 4, labels = c("Tampa", "Seattle","Boston"))
+print(v)
+```
+
+## Matrices
+
+Matrices are R objects whose elements are arranged in a two-dimensional rectangular layout. They contain elements of the same atomic types. A Matrix is created using `matrix()`
+
+*syntax*: `matrix(data, nrow, ncol, byrow, dimnames)`
+
+* `data` is the input vector which becomes the data elements of the matrix.
+* `nrow` is the number of rows to be created.
+* `ncol` is the number of columns to be created.
+* `byrow` is a logical clue. If TRUE then the input vector elements are arranged by row.
+* `dimname` is the names assigned to the rows and columns.
+
+```{R}
+# Arrange elements sequentially by row
+M <- matrix(c(3:14), nrow = 4, byrow = TRUE)
+print(M)
+```
+
+```{R}
+# Arrange elements sequentially by column
+N <- matrix(c(3:14), nrow = 4, byrow = FALSE)
+print(N)
+```
+
+```{R}
+# Define column and row names
+rownames = c("row1", "row2", "row3", "row4")
+colnames = c("col1", "col2", "col3")
+P <- matrix(c(3:14), nrow = 4, byrow = TRUE, dimnames = list(rownames, colnames))
+print(P)
+```
+
+### Accessing elements of a matrix
+Matrix elements can be accessed using the column and row index of the element. 
+
+```{R}
+rownames = c("row1", "row2", "row3", "row4")
+colnames = c("col1", "col2", "col3")
+P <- matrix(c(3:14), nrow = 4, byrow = TRUE, dimnames = list(rownames, colnames)) # Create Matrix
+print(P[1,3]) # 3rd column, 1st row.
+print(P[2,]) # 2nd row
+print(P[,3]) # 3rd column
+```
+
+### Matrix computations
+R has numerous mathematical operations applicable to matrices.
+**Note**: Computation results output matrices. 
+
+The dimensions (number of rows and columns) should be same.
+
+```{R}
+# Create two matrices
+matrix1 <- matrix(c(3, 9, -1, 4, 2, 6), nrow = 2)
+matrix2 <- matrix(c(5, 2, 0, 9, 3, 4), nrow = 2)
+print(matrix1)
+print(matrix2)
+
+# Addition
+result_add <- matrix1 + matrix2
+print(result_add)
+
+# Subtraction
+result_sub <- matrix1 - matrix2
+print(result_sub)
+
+# Multification
+result_mul <- matrix1 * matrix2
+print(result_mul)
+
+# Division
+result_div <- matrix1 / matrix2
+print(result_div)
+```
+
+## Data frames
+A `data frame` is a table or a two-dimensional array-like structure in which each column contains values of one variable and each row contains one set of values from each column, similar to a spreadsheet.
+
+Data frame guidelines:
+
+* The column names should be non-empty.
+* The row names should be unique.
+* The data stored in a data frame can be of numeric, factor or character type.
+* Each column should contain same number of data items.
+
+
+### Data frame creation
+
+```{R}
+# Create a data frames
+emp.data <- data.frame(
+   emp_id = c (1:5), 
+   emp_name = c("Rick","Dan","Michelle","Ryan","Gary"),
+   salary = c(623.3,515.2,611.0,729.0,843.25), 
+   
+   start_date = as.Date(c("2012-01-01", "2013-09-23", "2014-11-15", "2014-05-11",
+      "2015-03-27")),
+   stringsAsFactors = FALSE
+)		
+print(emp.data) 
+```
+
+### Data frame structure
+
+The *structure* of a data frame can be revealed using `str()` 
+
+```{R}
+# Reveal the structure of a data frame
+emp.data <- data.frame(
+   emp_id = c (1:5), 
+   emp_name = c("Rick","Dan","Michelle","Ryan","Gary"),
+   salary = c(623.3,515.2,611.0,729.0,843.25), 
+   
+   start_date = as.Date(c("2012-01-01", "2013-09-23", "2014-11-15", "2014-05-11",
+      "2015-03-27")),
+   stringsAsFactors = FALSE
+)
+str(emp.data)
+```
+
+### Data frame summary
+A *summary* of a data frame can be obtained applying `summary()` 
+
+```{R}
+# Data frame summary.
+print(summary(emp.data))  
+```
+
+### Data Frame Data Extraction
+
+Extract data from a data frame using column names
+
+```{R}
+# Extract Specific columns
+result <- data.frame(emp.data$emp_name,emp.data$salary)
+print(result)
+```
+
+Extract the first two rows and then all columns
+
+```{R}
+# Extract first two rows
+result <- emp.data[1:2,]
+print(result)
+```
+
+```{R}
+# Extract 3rd and 5th row with 2nd and 4th column
+result <- emp.data[c(3,5),c(2,4)]
+print(result)
+```
+
+### Data frame data expansion
+A data frame can be *expanded* by adding columns and rows.
+
+**Add Columns** with a column vector using a new column name.
+
+```{R}
+# Add the "dept" coulmn
+emp.data$dept <- c("IT","Operations","IT","HR","Finance")
+v <- emp.data
+print(v)
+```
+
+**Add Rows** permanently to an existing data frame, use the `rbind()` 
+
+```{R}
+# Create the second data frame
+emp.newdata <- 	data.frame(
+   emp_id = c (6:8), 
+   emp_name = c("Rasmi","Pranab","Tusar"),
+   salary = c(578.0,722.5,632.8), 
+   start_date = as.Date(c("2013-05-21","2013-07-30","2014-06-17")),
+   dept = c("IT","Operations","Fianance"),
+   stringsAsFactors = FALSE
+)
+
+# Bind the two data frames
+emp.finaldata <- rbind(emp.data,emp.newdata)
+print(emp.finaldata)
+```
+
+## General funcitons to examine and manipulate data
+
+Now that we have a basic understanding of data classes and R objects, the section introduces some helpful functions to improve your ability to manipulate and examine data.
+
+### Sort()
+The sort function is used to arrange numeric or character vector elements. The major limitation of the sort function is that it cannot be used to sort a data frame. To overcome this limitation use `order()` when working with R data frames. 
+
+*syntax*: `sort (x, decreasing = FALSE)`
+
+* `x` refers to the vector 
+* `decreasing` has to be replaced to TRUE when the sorting has to be done in descending order. 
+
+```{R}
+set.seed(1)
+x <- sample(1:100,10)
+sort(x)
+```
+
+### Order()
+
+Sorting data frames can be accomplished using `order()`. Variables can be easily sorted in either ascending or descending order; however, the order function will sort variables in ascending order by default.
+
+*syntax: `order(…, na.last = TRUE, decreasing = FALSE)`
+
+* `…` a sequence of numeric, complex, character or logical vectors, all of the same length, or a classed R object.
+* `na.last` for controlling the treatment of `NAs`. If `TRUE`, missing values in the data are put last; if `FALSE`, they are put first; if `NA`, they are removed 
+* `decreasing` logical - sort order: increasing or decreasing
+
+```{R}
+# Create a data frame
+df <- data.frame("Serial_number" = 1:5, "Age" = c(20, 21, 17, 18, 19), "Name" = c("Johnny","Dorian", "Linda", "Cathy", "Rick"))
+# Sort by age ascending order
+newdataAsc <- df[order(df$Age),]
+newdataAsc
+```
+
+```{R}
+# sorting in descending order
+newdataDsc <- df[order(-df$Age),]
+newdataAsc
+```
+
+### Range() 
+The `range()` function returns a vector containing the minimum and maximum of all given arguments.  With a R data frame, `range()` returns the maximum and minimum value of the vector and column. 
+
+*syntax*: `range(…, na.rm = FALSE, finite = FALSE)`
+
+* If `na.rm` is `FALSE`, `NA` and `NaN` values in any of the arguments will cause `NA` values to be returned, otherwise `NA` values are ignored.
+
+* If `finite` is `TRUE`, the minimum and maximum of all finite values is computed. **Note**: finite = TRUE includes `na.rm = TRUE`
+
+```{R}
+# Range of a numeric vector
+x <- c(2,7,1,-17,Inf,35,21,7)
+range(x)
+```
+
+```{R}
+# Range of a numeric vector with NA
+x <- c(2,7,1,-17,Inf,35,21,7,NA)
+range(x,na.rm=TRUE)
+```
+
+```{R}
+# Range of a character vector
+x<-c("a","h","x","i","j")
+range(x)
+```
+
+
+```{R}
+# Range used with a data frame
+my_basket = data.frame(ITEM_GROUP = c("Fruit","Fruit","Fruit","Fruit","Fruit","Vegetable","Vegetable","Vegetable","Vegetable","Dairy","Dairy","Dairy","Dairy","Dairy"), 
+                       ITEM_NAME = c("Apple","Banana","Orange","Mango","Papaya","Carrot","Potato","Brinjal","Raddish","Milk","Curd","Cheese","Milk","Paneer"),
+                       Price = c(100.981,80.643,80.223,90.3,65.3,71.9,62.2,71.3,25.1,62.9,41.9,35.7,50.9,121.7))
+
+my_basket
+# range of a column
+range(my_basket$Price)
+```
+
+### Common data frame examination functions
+
+Before we close this lesson out, let's review a few more helpful functions to use with R data frame
+
+* `dim()`: shows the dimensions of the data frame by row and column
+* `str()`: shows the structure of the data frame
+* `summary()`: provides summary statistics on the columns of the data frame
+* `colnames()`: shows the name of each column in the data frame
+* `head()`: shows the first 6 rows of the data frame
+* `tail()`: shows the last 6 rows of the data frame
+* `View()`: shows a spreadsheet-like display of the entire data frame
+
+**Note**: Examples below use a web-based data set**
+
+```{R}
+# Import the data set on and assign it to a data frame 
+crime <- read.csv("http://vincentarelbundock.github.io/Rdatasets/csv/datasets/USArrests.csv", stringsAsFactors = FALSE)
+```
+
+Examine the new data frame
+
+```{R}
+dim(crime) # dimensions
+str(crime) # structure
+summary(crime) 
+colnames(crime) # column names
+rownames(crime) # row names
+```
+
+The `head()` and `tail()` functions default to 6 rows.  Use "n = " to modify the number shown
+
+```{R}
+head(crime, n = 10)
+tail(crime, n = 5)
+```
+
+`dim`, `str`, `summary`, `colnames`, `rownames`, `head`, and `tail` all provide useful information printed to the console.  
+To open the data frame ass a table in its own window, user `View()` 
+
+```{R}
+View(crime)
+```
+
+**As always for all matters R, see the online documentation for additional details**
+
+*For a list of all course source materials and references, please see the Course GitHub Repo `Readme.md`*  
+
+## Next lesson: 2.1 Functions in R!!

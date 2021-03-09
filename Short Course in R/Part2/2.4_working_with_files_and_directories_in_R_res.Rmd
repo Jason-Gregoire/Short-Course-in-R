@@ -1,0 +1,221 @@
+-------
+Title: Short Course in R: 
+Lesson: 2.4: Working with Files and Directories in R
+Date: FEB2021
+Author: Jason Gregoire
+Contact: jason.gregoire@nps.edu
+---------------
+
+# 2.4: Working with Files and Directories in R
+
+R has both built-in functions as well as advanced packages for working with files and directories. The `fs` R package provides a cross-platform, uniform interface to file system operations.`fs` functions are divided into four main categories:
+
+* `path_` for manipulating and constructing paths
+* `file_` for files
+* `dir_` for directories
+* `link_` for links
+
+Additionally, since we are introducing packages, we can add `tidyverse` as well, the most popular set of R package for data manipulation. 
+For more info on the tidyverse package: [https://en.wikipedia.org/wiki/Tidyverse] (https://en.wikipedia.org/wiki/Tidyverse) 
+
+First install and then load the packages 
+`install.packages("devtools")`
+`devtools::install_github("r-lib/fs")`
+`install.packages(tidyverse)`
+
+
+```{R}
+library(fs)  
+library(tidyverse)  
+```
+
+**Copy files, directories or links**:
+
+* `file_copy()`, `dir_copy()`, `link_copy()` 
+
+**Create files, directories, or links**: 
+
+* `file_create()`, `dir_create()`, `link_create()` 
+
+**Delete files, directories, or links**:
+
+* `file_delete()`, `dir_delete()`, `link_delete()` 
+
+**Query for existence and access permissions**:
+
+* `file_access()`, `file_exists()`, `dir_exists()`, `link_exists()`
+
+**Change file permissions**:
+
+* `file_chmod()`
+
+**Change owner or group of a file**:
+
+* `file_chown()` 
+
+**Query file metadata**:
+
+* `file_info()`
+
+**Move or rename files**:
+
+* `file_move() 
+
+
+### Basic file and directory uses
+
+* **List** the files in a directory/folder
+* **Create** and **delete** files/directory
+
+Built in `list.files()` show files in a specified path. 
+If no path is specified, it will show files in the `CWD`
+
+
+```{R}
+# # list files in the current directory
+list.files()
+# List files with fs 
+fs::dir_ls() 
+```
+
+The `dir.create()`creates a directory in the path specified, or absent specification, in the `CWD`. The `fs` package uses `dir_create`
+
+```{R} 
+dir.create("tmp.dir1") # create a new directory
+tmp.dir2 <- fs::dir_create("tmp.dir2")
+```
+
+Use `file.create()` to make a new file. **Note**: `file.create()` returns a `TRUE`  if file is created otherwise, returns `FALSE`. The `fs` package uses `fs::file_create()`
+
+```{R}
+tmp_file1 <- file.create("tmp_file1.txt")
+tmp_file2 <- fs::file_create("tmp_file2.txt")
+```
+
+```{R}
+cat("This is a general entry ... ", file = "tmp_file1.txt", append = FALSE, sep = "\n")
+
+for(i in 1:10){
+  cat(i, file = "tmp_file2.txt", append = TRUE, sep = "\n")
+}
+```
+
+```{R}
+# House cleaning
+file.remove("tmp_file1.txt") 
+# House cleaning
+file.remove("tmp_file2.txt")  # remove files from the directory
+# House cleaning
+fs::dir_delete("tmp.dir2")
+# House cleaning
+fs::dir_delete("tmp.dir1")
+list.files()
+list.dirs()
+```
+
+## Create a link
+Use the symbolic Boolean to determine the link type: `symbolic` (the default) or `hard` 
+
+*syntax*: `fs::link_create(path, new_path, symbolic = TRUE)`
+
+```{R}
+fs::file_create("foo")
+fs::link_create(path_abs("foo"), "bar")
+fs::link_path("bar")
+# House cleaning
+fs::file_delete(c("foo", "bar")) # Cleanup
+```
+
+```{R}
+fs::file_create("foo")
+fs::file_copy("foo", "bar")
+try(file_copy("foo", "bar"))
+fs::file_copy("foo", "bar", overwrite = TRUE)
+fs::file_delete(c("foo", "bar"))
+```
+
+```{R}
+# Create a directory and put a few files in it
+fs::dir_create("foo")
+files <- fs::file_create(c("foo/bar", "foo/baz"))
+fs::file_exists(files)
+# Copy the directory
+fs::dir_copy("foo", "foo2")
+fs::file_exists(path("foo2", path_file(files)))
+# Create a link to the directory
+fs::link_create(path_abs("foo"), "loo")
+fs::link_path("loo")
+fs::link_copy("loo", "loo2")
+link_path("loo2")
+# House cleaning
+fs::dir_delete(c("foo", "foo2"))
+fs::link_delete(c("loo", "loo2"))
+```
+
+## Permissions and access control
+Permissions in R consist of three groupings: 
+
+* what the owner of the file can do to it
+* what someone in a group can do to the file
+* what anyone (sometimes referred to as other) can do 
+
+Acess for `owner`, `group member`, or `others` include `read`, `write`, or `execute`
+
+```{R}
+fs::file_create("pa.txt", mode = "777")
+```
+
+### Change File Permissions
+
+*syntax*: `file_chmod(path, mode = "")`
+
+* `path` A character vector of one or more paths.
+* `mode` A character vector containing one or more of ’exists’, ’read’, ’write’, ’execute’.
+
+```{R}
+file_info("pa.txt")$permissions
+file_chmod("pa.txt", "400")
+file_info("pa.txt")$permissions
+file_chmod("pa.txt", "777")
+file_info("pa.txt")$permissions
+```
+
+### Change owner or group of a file
+
+*syntax*: `file_chown(path, user_id = NULL, group_id = NULL)`
+
+* `path` A character vector of one or more paths.
+* `user_id` The user id of the new owner, specified as a numeric ID or name. The R process
+must be privileged to change this.
+* `group_id` The group id of the new owner, specified as a numeric ID or name.
+
+```{R}
+fs::file_chown("pa.txt") 
+```
+
+### Query file metadata
+
+*syntax*: `file_info(path, fail = TRUE, follow = FALSE)`
+
+* `path` A character vector of one or more paths.
+* `fail` Should the call fail (the default) or warn if a file cannot be accessed.
+* `follow` If TRUE, symbolic links will be followed (recursively)
+
+```{R}
+fs::file_info("pa.txt") 
+```
+
+## Move or rename files
+
+*syntax*: `file_move(path, new_path)`
+
+```{R}
+# Move file
+fs::file_move("pa.txt", "pa2.txt")
+```
+
+**As always for all matters R, see the online documentation for additional details**
+
+*For a list of all course source materials and references, please see the Course GitHub Repo `Readme.md`*  
+
+## Next lesson: 4.1 Data Analysis in R Data Frames

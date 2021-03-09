@@ -1,0 +1,128 @@
+-------
+Title: Short Course in R: 
+Lesson: 2.1: Functions in R
+Date: FEB2021
+Author: Jason Gregoire
+Contact: jason.gregoire@nps.edu
+---------------
+
+# 2.1: Functions in R
+
+While we've already covered a variety of functions, it is worthwhile to have short lesson to  gain a deeper appreciation for **functions** in R.
+
+Functions are a special type of R Object this useful when you want to perform a certain task multiple number of times. *Functions* accept input arguments and produce output by executing valid R commands that are inside the function. In general, in R you have *built-in*, *package-associated*, and *user-defined* functions. 
+
+## General function charecteristics in R
+Functions in R are created using `function()` 
+
+*syntax*: `function_name <- function(arg_1, arg_2, ...) {
+			Function body 
+			}`
+
+* `Function Name` − This is the actual name of the function. It is stored in R environment as an object with this name.
+* `Arguments` − An argument is a placeholder. When a function is invoked, you pass a value to the argument. Arguments are optional; that is, a function may contain no arguments. Also arguments can have default values.
+* `Function Body` − The function body contains a collection of statements that defines what the function does.
+  + `Return Value` − The return value of a function is the last expression in the function body to be evaluated.
+
+***Example: Single Input - Single Output***
+
+A functions takes input objects and returns a single object as output
+```{R}
+areaOfCircle = function(radius){ 
+  area = pi*radius^2
+  return(area) 
+} 
+print(areaOfCircle(2)) 
+```
+
+***Example: Multiple Input _ Multiple Output***
+
+Functions in R allow multiple input objects and to combine multiple function outputs into a single vector/list.  This allows access to all elements as a function's output.
+
+```{R}
+Rectangle = function(length, width){ 
+	area = length * width 
+	perimeter = 2 * (length + width) 
+	result = list("Area" = area, "Perimeter" = perimeter) 
+	return(result) 
+} 
+resultList = Rectangle(2, 3) 
+print(resultList["Area"]) 
+print(resultList["Perimeter"]) 
+```
+
+### Inline functions
+In the cases where a desired function is simple and can be expressed in a single action statement R allows `Inline` functions without the use of {curly brackets}. 
+
+```{R}
+f = function(x) x^2*4+x/3 
+print(f(4)) 
+print(f(-2)) 
+print(0) 
+```
+
+## Built-in functions
+We have already covered dozens of built-in functions in previous lessons. Other common examples are `seq()`, `mean()`, `sum(x)`, and `max()` 
+
+```{R}
+# Create a sequence from 32 to 44
+print(seq(32,44)) 
+# Find the mean from 25 to 82
+print(mean(25:82))
+# Find the sum from 41 to 68 
+print(sum(41:68)) 
+a <- seq(32,44)
+b <- mean(25:82)
+c <- sum(41:68)
+print(max(c(a, b, c)))
+```
+
+## User-defined functions 
+User-defined functions can be designed to work *with* or *without* arguments. 
+
+```{R}
+# function with an argument
+new.function <- function(a) { 
+   for(i in 1:a) {
+      b <- i^2
+      print(b)
+   }
+}	
+# to use the function, call it and supply an argument value
+new.function(6) 
+```
+
+```{R}
+#function without an argument
+new.function <- function() { 
+   for(i in 1:5) {
+      print(i^2)
+   }
+}	
+new.function()
+```
+
+### Passing arguments to functions
+
+* Generally in R, arguments are passed to the function in the same order as they are listed within the function definition.
+* If you do not want to follow the order what you must pass arguments using the **names** or **position index** of the argument.
+* If the arguments are not passed, default values can be added to a functions argument definitions, which in the absence of arguments being provided, will be used to execute the function. 
+```{R}
+Rectangle = function(length=5, width=4){ 
+  area = length * width 
+  return(area) 
+} 
+# arguments in function defined order
+print(Rectangle(2, 3))  			
+# arguments by name
+print(Rectangle(width = 8, length = 4)) 	
+# default argument values
+print(Rectangle()) 				
+```
+
+**As always for all matters R, see the online documentation for additional details**
+
+*For a list of all course source materials and references, please see the Course GitHub Repo `Readme.md`*  
+
+## Next lesson: 2.2: Packages, Variable Scope, and Namespace in R
+

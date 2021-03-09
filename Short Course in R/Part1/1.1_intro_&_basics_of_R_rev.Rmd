@@ -1,0 +1,756 @@
+
+---------------
+Title: Short Course in R: 
+Lesson: 1.1: Introduction and Basics of R 
+Date: FEB2021
+Author: Jason Gregoire
+Contact: jason.gregoire@nps.edu
+---------------
+
+
+# 1.1: Introduction and Basics of R 
+
+## What is R. 
+
+* R is a programming language and software environment for statistical analysis, graphics representation and reporting. R generally comes with the Command-line interface and is available across Windows, Linux, and macOS.
+
+### Why should I learn R? 
+* Programming is used as a leading tool for machine learning, statistics, and data analysis. 
+
+* Objects, functions, and packages can easily be created by R.
+* It’s an open-source free language. 
+* R is not only a statistic package, but also allows us to integrate with other languages (C, C++). Thus, you can easily interact with many data sources and statistical packages.
+* R has a vast and growing community of users.
+* R is one of the most requested programming languages in the Data Science job market.
+
+### There are lots of online resources for learning R
+
+* Offical 'R' Foundation: https://www.r-project.org/ 
+* Comprehensive R Archive Network (CRAN): https://cran.r-project.org/
+  + Download the R languiage and basic Command-Line Envrinoment
+* The Offical R-Manauals: https://cran.r-project.org/manuals.html
+* R Markdown Cheatsheet!! https://rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf
+* See reference for all source material for this short course within its GitHub readme.md
+
+### Programming Languages: Compiled vs. Interpreted
+**R is an Interpreted Language. What does that mean?**
+
+* It's a little slower at time of execution (but there are ways to improve this)
+* It has the ability to interact in a call-and-response manner (like Matlab)  
+* R is really great for rapid prototyping and quickly getting something up and running.
+
+### Interacting with the basic R Interpreter
+Once you have the R environment installed and setup: 
+
+(1) Open the terminal/shell 
+
+(2) Once at the command line, type: `R`
+
+This will launch R interpreter and you will get a prompt `>` where you can start coding.  
+
+  ```{R}
+  myString <- "Hello, World!"
+  print (myString)
+  ```
+(3) To close out of R (but remain in the terminal/shell), hit control-d on your keyboard or type `exit()`. The `$` prompt should return. 
+
+**Note**: that when you exit, all R variables/values are erased from memory.
+
+### A better environment: The offical R integrated development environment: **R-Studio**
+
+* An **Integrated Development Environment (IDE)** is a software application that provides comprehensive facilities for software development.
+
+*R Studio*, R's official IDE, is available as both Open Source and Commercial software and can be downloaded from its official Website: `www.rstudio.com`
+
+*R Studio* is powerful and easy to set up and use. 
+
+![R-Studio U/I](https://res.cloudinary.com/data-science-dojo/image/upload/v1527878589/rstudio2_gy2jzi.png)
+
+
+*R Studio* has a three panels:
+
+* A Console panel: type and execute R code 
+* An Environmental/History panel. displays generated variables and a session log of executed commands
+* A Multiple Tool Panel: displays loaded files, generated plots, available packages, help section, and a web viewer.
+
+**Note**: *Jupyter Notebooks*, if set up correctly, can also run R. 
+For instructions please see: https://docs.anaconda.com/anaconda/navigator/tutorials/r-lang/
+
+## Data Types (classes) in R
+In R, variables are not declared as some data type, but instead variables are assigned as R objects and the data type of that R object becomes the data type or `class` of the variable. R `objects` include:
+
+* Vectors
+* Lists
+* Matrices
+* Arrays
+* Factors
+* Data Frames
+
+The elemental R `objects` is the `vector`; vectors have six data types:
+
+* `logical`
+* `numeric`
+* `integer`
+* `complex`
+* `charecter`
+* `raw`  
+
+Examples: 
+```{R}
+#'logical'
+v <- TRUE 
+print(class(v))
+w <- T 
+print(class(w))
+```
+
+```{R}
+#'numeric`
+v <- 23.5
+print(class(v))
+```
+
+```{R}
+#`integer`
+v <- 2L
+print(class(v))
+```
+
+```{R}
+#`complex`
+v <- 2+5i
+print(class(v))
+```
+
+```{R}
+#`character`	
+v <- "TRUE"
+print(class(v))
+w <- "5"
+print(class(v))
+x <- "2.0"
+print(class(v))
+y <- "Apple"
+print(class(v))
+```
+
+```{R}
+#`raw`
+v <- charToRaw("Hello")
+print(class(v))
+```
+
+**Note**: In R, `NULL` represents the null or an empty object in R. `NA` represents a missing value in R. `NA` can be updated in R by *vectors*, *list* and other R objects whereas `NULL` cannot be coerced.
+
+## Speaking of `R` Objects
+As stated before, everything in R is an object, and in R nearly every object is made up of vectors. For example, `3` is a vector of length `one`, and type `charecter`.   
+
+```{R}
+class('3')
+```
+
+### Vectors
+In R, vectors are typically composed using `c()`, which *combines* elements into a vector.
+
+```{R}
+# Create a vector
+apple <- c('red','green',"yellow")
+print(apple)
+print(class(apple))
+```
+
+### Lists
+A list is an R object which can contain different types of elements (vectors, functions, lists)
+
+```{R}
+# Create a list
+list1 <- list(c(2,5,3),21.3,sin)
+print(list1)
+```
+
+### Matrices
+A matrix is a two-dimensional rectangular data set. 
+
+```{r}
+# Create a matrix
+M = matrix( c('a','a','b','c','b','a'), nrow = 2, ncol = 3, byrow = TRUE)
+print(M)
+```
+
+### Arrays
+Arrays are data sets of any dimensions. 
+
+```{R}
+# Create an array
+# syntax: dim (cols, rows, # of arrays)
+a <- array(c('green','yellow'),dim = c(3,3,2)) 
+print(a)
+```
+
+### Factors
+Factors stores distinct values of vector elements as labels. 
+
+```{R}
+# Add factors to a vector
+apple_colors <- c('green','green','yellow','red','red','red','green')
+factor_apple <- factor(apple_colors)
+print(factor_apple)
+print(nlevels(factor_apple))
+```
+
+### Data Frames
+Data frames are spreadsheet data objects. The difference between a matrix and a data frame is that a data frame can have different forms of data. Another way to think about data frames are as lists of vectors of equal length.
+
+```{R}
+# Create the data frame
+BMI <- 	data.frame(
+   gender = c("Male", "Male","Female"), 
+   height = c(152, 171.5, 165), 
+   weight = c(81,93, 78),
+   Age = c(42,38,26)
+)
+print(BMI)
+```
+
+**Much more will be said and done with R objects in further lessons.**
+
+## Operators and Expressions in R
+
+* **Operators** are special symbols for simple actions, computations, and logic.
+  + Arithmetic Operators
+  + Relational Operators
+  + Logical Operators
+  + Assignment Operators
+  + Miscellaneous Operators
+
+**Note**: The same *operator* will behave differently when used with different *classes* of data.
+
+### Arithmetic Operators
+The first type of operators we will learn are the arithmetic operators:
+
+* Addition, Subtraction: `+` `-`
+* Multiplication: `*`
+* Division: `/` 
+* Modulus (remainder): `%%`
+* Integer Division: `%?%`
+* Exponentiation: `^`  or `**`  
+
+```{R}
+# Addition 
+v <- c(2, 5.5, 6)
+t <- c(8, 3, 4)
+print(v + t)
+```
+
+```{R}
+# Subtraction
+v <- c(2, 5.5, 6)
+t <- c(8, 3, 4)
+print(v - t)
+```
+
+```{R}
+# Multiplication
+v <- c(2, 5.5, 6)
+t <- c(8, 3, 4)
+print(v * t)
+```
+
+```{R}
+# Division
+v <- c(2, 5.5, 6)
+t <- c(8, 3, 4)
+print(v / t)
+```
+
+```{R}
+# Modulus
+v <- c(2, 5.5, 6)
+t <- c(8, 3, 4)
+print(v %% t)
+```
+
+```{R}
+# Integer Division
+v <- c(2, 5.5, 6)
+t <- c(8, 3, 4)
+print(v %/% t)
+```
+
+```{R}
+# Exponential
+v <- c(2, 5.5 ,6)
+t <- c(8, 3, 4)
+print(v ^ t)
+print(v ** t)
+```
+
+### Order of Operation
+For expressions involving multiple operators, R follows an explicit ordering for evaluating each part:
+
+  * `()`: Parentheses have the highest precedence and can be used to force an expression to evaluate in the order you want, starting from the inner most parentheses and working outward.
+
+  * Unary operators (e.g., designating a negative number) have the next highest precedence.
+
+  * `^` `**`: Exponentiation has the next highest precedence.
+
+  * `*`, `/`: Multiplication and Division have the same precedence.
+
+  * `+` and `-`: Addition and Subtraction have the same precedence.
+
+Operators with the same precedence are evaluated from left to right (except exponentiation).
+  
+### Relational Operators
+
+Greater Than `>`
+Less Than `<`
+Equal `==`
+Less Than or Equal To `<=`
+Great Than or Equal To `>=`
+Not Equal `!=`
+
+```{R}
+# Greater Than
+v <- c(2,5.5,6,9)
+t <- c(8,2.5,14,9)
+print(v>t)
+```
+
+```{R}
+# Less Than
+v <- c(2,5.5,6,9)
+t <- c(8,2.5,14,9)
+print(v < t)
+```
+
+```{R}
+# Equal
+v <- c(2,5.5,6,9)
+t <- c(8,2.5,14,9)
+print(v == t)
+```
+```{R}
+# Less Than or Equal To
+v <- c(2,5.5,6,9)
+t <- c(8,2.5,14,9)
+print(v<=t)
+```
+
+```{R}
+# Great Than or Equal To
+v <- c(2,5.5,6,9)
+t <- c(8,2.5,14,9)
+print(v>=t)
+```
+
+```{R}
+# Not Equal
+v <- c(2,5.5,6,9)
+t <- c(8,2.5,14,9)
+print(v!=t)
+```
+
+### Logical Operators
+AND `&` `&&` 
+OR `|` `||`
+NOT `!`
+
+```{R}
+# Both True (and) (vector)
+v <- c(3,1,TRUE,2+3i)
+t <- c(4,1,FALSE,2+3i)
+print(v&t)
+```
+
+```{R}
+# One True (or) (vector)
+v <- c(3,0,TRUE,2+2i)
+t <- c(4,0,FALSE,2+3i)
+print(v|t)
+```
+
+```{R}
+# Not True
+v <- c(3,0,TRUE,2+2i)
+print(!v)
+```
+
+```{R}
+# Both True (and) (single value)
+v <- c(3,0,TRUE,2+2i)
+t <- c(1,3,TRUE,2+3i)
+print(v&&t)
+```
+
+```{R}
+# One True (or) (single value)
+v <- c(0,0,TRUE,2+2i)
+t <- c(0,3,TRUE,2+3i)
+print(v||t)
+```
+
+### Assignment Operators
+R gives you several assignment options. `<-` is considered the primary 'correct' operator. 
+
+* `<-`
+* `<<-`
+* `=`
+* `->`
+* `->>`
+* `assign(x, 'a')`
+
+```{R}
+v1 <- c(3,1,T,2+3i)
+v2 <<- c(3,1,T,2+3i)
+v3 = c(3,1,T,2+3i)
+c(3,1,T,2+3i) -> v4
+c(3,1,T,2+3i) ->> v5
+assign("x", c(3,1,T,2+3i))
+x
+```
+
+### Miscellaneous Operators
+```{R}
+# Sequencing - IMPORTANT - this is one of the most widespread operators in R!
+v <- 2:8
+print(v) 
+```
+
+```{R}
+# Identify if an element belongs to a vector or data frame
+v1 <- 8
+v2 <- 12
+t <- 1:10
+print(v1 %in% t) 
+print(v2 %in% t) 
+```
+
+```{R}
+# Multiplies two matrices if they are conformable
+M = matrix( c(2,6,5,1,10,4), nrow = 2,ncol = 3,byrow = TRUE)
+t = M %*% t(M)
+print(t)
+```
+
+## Coercion
+A quick note on Coercion: Coercion can be thought of when the interpreter converts the data Type. 
+In R there are two types of Coercion: 
+
+* *Implicit* Coercion
+* *Explicit* Coercion
+
+### Explicit Coercion
+*Explicit* coercion is the manual data class (type) reassignment via an R function.
+```{R}
+# numeric
+x <- 0:6
+class(x)
+z<-as.numeric(x)
+class(z)
+```
+
+```{R}
+# numeric
+x <- c('1', '2')
+class(x)
+z<-as.numeric(x)
+class(z)
+```
+
+```{R}
+# character 
+x <- c(T,F)
+class(x)
+z<-as.character(x)
+class(z)
+```
+
+```{R}
+# logical 
+x <- c(0, 1, 2)
+class(x)
+z<-as.logical(x)
+class(z)
+is.logical(z)
+```
+
+**Note**:You can't force everything:
+
+```{R}
+x <- c('a', 'b', 'c')
+class(x)
+z<-as.numeric(x)
+class(z)
+```
+NA or missing. R is unable to coerce the data.  
+
+### Implicit Coercion 
+Implicit coercion is when the R interpreter automatically converts a data class 
+```{R}
+x <- c(1.7, 'a', T)
+x
+class(x)
+```
+
+## Variables in R
+A variable in R can store a vector, group of vectors or a combination of R objects. 
+
+### Identifiers
+* An identifier is a sequence of characters to name a variable and other program elements
+
+* A valid R identifier must:
+  + consist of a combination of alphabets, numbers, dot(.) and underscore(_) characters. `var.1_`
+  + start with letters or the dot characters `.var 
+  + not include special characters: `var$1` is invalid
+  + not start with numbers or underscore `2var` or `_var` is invalid
+
+**Note**: a variable starting with a dot must be followed a letter `.app` is valid, `.3var` is invalid
+
+## Reserved Words
+An identifier that is used for a specific purpose by Python is called a **reserved word** or **keyword**.
+
+`if` `else` `repeat` `while` `function` `for` `in` `next` `break` `T` `F`
+
+`TRUE` `FALSE` `NULL` `Inf` `NaN` `NA` `NA_integer_` `NA_real_` `NA_complex_` `NA_character_` `...`
+
+To see a list of reserved words in R, 
+```{R}
+help(reserved) 
+#or
+?reserved
+```
+
+## Control Structures in R
+R has a four key *control structures*.
+
+* `if` Statement: use it to execute a block of code, if a specified condition is true
+* `else` Statement: use it to execute a block of code, if the same condition is false
+* `else if` Statement: use it to specify a new condition to test, if the first condition is false
+* `ifelse()` Function: use it when to check the condition for every element of a vector
+
+You can use the control statement `if` statement to execute a block of code if the condition is true.
+
+**Note**: In R, any non-zero value is considered TRUE (even *negative* numbers), whereas a zero is considered FALSE.
+
+```{R}
+x <- 7
+y <- 5
+if(x + y) {
+  print("True")
+}
+```
+
+```{R}
+# any non-zero value
+if(-3) {
+  print("True")
+}
+```
+
+If you have only one statement curly braces are not required.
+
+```{R}
+x <- 7
+y <- 5
+if(x > y) print("x is greater")
+```
+
+You can write one `if` statement inside another `if` statement to test more than one condition and return different results.
+
+```{R}
+x <- 7
+y <- 5
+z <- 2
+if(x > y && x > z) {
+  if (y != z)
+  print("x is greater")
+}
+```
+
+Use `else` to execute a block of code if the condition is false.
+
+```{R}
+x <- 7
+y <- 5
+if(x > y) {
+  print("x is greater")
+} else {
+  print("y is greater")
+}
+```
+
+Use `else if` to specify a new condition to test if the first condition is 
+false.
+
+```{R}
+x <- 5
+y <- 5
+if(x > y) {
+  print("x is greater")
+} else if(x < y) {
+  print("y is greater")
+} else {
+  print("x and y are equal")
+}
+```
+
+In R, you can use as many `else if` statements as you want in your program. However, when you want to make a series of decisions `switch()` may be a better choice.
+
+If you have only one statement for `if` and one for `else`, R lets you use a single line.
+
+```{R}
+x <- 7
+y <- 5
+if (x > y) print("x is greater") else print("y is greater")
+```
+
+You can also use it to select variable assignment.
+
+```{R}
+x <- 7
+y <- 5
+max <- if (x > y) x else y
+print(max)
+```
+
+The `ifelse()` function checks the condition for every element of a vector and selects those elements from the specified vector depending upon the result.
+
+*syntax*: `ifelse(Condition, TrueVector, FalseVector)`
+
+```{R}
+v <- c(1,2,3,4,5,6)
+w <- ifelse(v %% 2 == 0, "even", "odd")
+print(w)
+```
+
+You can even use this function to choose values from two vectors.
+
+```{R}
+v1 <- c(1,2,3,4,5,6)
+v2 <- c("a","b","c","d","e","f")
+ifelse(c(TRUE,FALSE,TRUE,FALSE,TRUE,FALSE), v1, v2)
+```
+
+## Loops
+
+### *While* Loops
+A `while` loop is used when you want to perform a task until a specified  condition is met.
+
+**Note**: Reminder, any non-zero value or nonempty container is considered `TRUE`; whereas *Zero*, *None*, and *empty* container is considered `FALSE`.
+
+```{R}
+# Iterate until x becomes 0
+x <- 5
+while (x) {
+  print(x)
+  x <- x - 1
+}
+```
+
+If the condition is false at the start, the `while` loop never executes.
+
+```{R}
+x <- 0
+while (x) {
+  print(x)
+  x <- x - 1
+}
+```
+
+You can use the reserved word `break` to break out of the loop.
+
+```{R}
+# Break the loop when x becomes 3
+x <- 6
+while (x) {
+  print(x)
+  x <- x - 1
+  if (x == 3)
+    break
+}
+```
+
+You can use the reserved work `next` to skip the current iteration and return to the next iteration in the loop. 
+
+```{R}
+# Skip odd numbers using continue statement
+x <- 6
+while (x) {
+  x <- x - 1
+  if (x %% 2 != 0)
+    next
+  print(x)
+}
+```
+
+### *For* Loops
+The `for` statement in R is a slightly different than traditional `for` loops in other languages. Instead of iterating over a numeric progression, in R `for` iterates over the items within of a *vector* or a *list*. Iterations progress in the order of the elements within the vector.
+
+```{R}
+# Iterate through a vector
+colors <- c("red","green","blue","yellow")
+for (x in colors) {
+  print(x)
+}
+```
+
+```{R}
+# Iterate through a list
+l <- list(3.14, "Hi", c(1,2,3))
+for (x in l) {
+  print(x)
+}
+```
+
+### Sequencing 
+
+If you need to execute a group of statements for a specified number of times, use sequence operator `:` or the `seq()`
+
+```{R}
+# Print 'Hello!' 3 times
+for (x in 1:3) {
+  print("Hello!")
+}
+```
+
+```{R}
+# Iterate a sequence and square each element
+for (x in seq(from=2,to=8,by=2)) {
+  print(x^2)
+}
+```
+
+If you have only one statement to execute curly braces are not required, 
+
+```{R}
+# Print the numbers 0 to 4
+for (x in 0:4) print(x)
+```
+```{R}
+for(x in 1:3) {
+  for(y in 1:2) {
+    print(paste(x, y))
+  }
+}
+```
+
+### **Repeat** Loops
+A `repeat` loop in R repeats a block of code indefinitely. In this loop, no condition checking is performed in order to end the loop. A `reapt` loop
+**requires a condition explicitly inside it with `break` statement**, without it, you will have **an infinite loop**.
+
+```{R}
+# Iterate until x becomes 5
+x <- 1
+repeat {
+  print(x)
+  if (x > 4)
+    break
+  x <- x + 1
+}
+```
+
+**As always for all matters R, see the online documentation for additional details**
+
+*For a list of all course source materials and references, please see the Course GitHub Repo `Readme.md`*  
+
+## Next lesson: Vectors and Strings in R

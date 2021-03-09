@@ -1,0 +1,330 @@
+-------
+Title: Short Course in R: 
+Lesson: 4.1: Data Analysis in R - Data Frames
+Date: FEB2021
+Author: Jason Gregoire
+Contact: jason.gregoire@nps.edu
+---------------
+
+# 4.1: Data Analysis in R - data frames
+
+** As someone who works with data, two common situations are that you either have a file of your data frame, or need to make a file of your data frame.** 
+
+Let's jump right in!
+
+## You have a CSV file and you want build a data frame
+Save a web-based csv locally and rename it. 
+```{R}
+df <- read.csv("https://people.sc.fsu.edu/~jburkardt/data/csv/biostats.csv", 
+               header = TRUE,
+               na.strings=c("","NA"),    
+               sep = ",")
+write.csv(df, "biostats1.csv", row.names = TRUE)
+```
+Analyze a web-based csv
+```{R}
+biostats2= read.csv("https://people.sc.fsu.edu/~jburkardt/data/csv/biostats.csv", header = TRUE, stringsAsFactors = FALSE, na.strings=c(NA,"-"))
+#Dimensions of data frame
+dim(biostats2)
+names(biostats2)
+```
+
+**Note**: you can always manually make a data frame 
+
+```{R}
+col_a <- c('a','b','c')
+col_b <- c(1,2,3)
+df <- data.frame(col_a, col_b)
+```
+
+**Note**: R, by default comes with a set of in-built datasets. To view the list, type `data()` 
+
+## Working with data frames
+With R you can work with data frames directly. 
+For more complex data frame operations use packages like `dplyr`, `reshape2` etc. 
+
+### Check the size of the data frame
+`dim()`
+```{R}
+dim(iris) # dimensions
+```
+
+### Top & bottom 5 rows of data frame
+
+```{R} 
+head(iris,5)
+tail(iris,5)
+```
+
+### Check column names
+
+```{R}
+names(iris)
+colnames(iris)
+rownames(iris)
+```
+
+### Rename columns
+In R we can assign a vector to column names
+
+```{R}
+colnames(iris) <- c("lengthOfSepal","widthOfSepal","lengthOfPetal","widthOfPetal","Species")
+colnames(iris)
+```
+
+### Data frame details
+
+```{R}
+print(summary(iris)) 
+```
+
+### Data frame subsetting 
+*syntax*:: `df[row,column]` or `df[row vector,column vector]`
+
+```{R}
+iris[3,4] #df[row,column] format
+iris[2:5,1:3] #df[row vector, column vector] format
+iris[2:5,] # all rows
+iris$lengthOfSepal[2:3] #specify column by name
+```
+
+### Computing mean
+
+```{R}
+mean(iris$lengthOfSepal)
+```
+
+### Computing standard deviation
+
+```{R}
+sd(iris$widthOfSepal)
+```
+
+# Data munging 
+
+Data Munging is the general term regarding techniques to transform data from unusable or erroneous form to useful form. In R, the most common functions for data munging are: 
+
+* `apply()` function family
+* `aggregate()` function
+* `plyr` package
+* `dplyr` package
+
+## Using the `apply()` function family for data munging
+
+The `apply()` function family includes:
+
+* `apply()`
+* `lapply()` 
+* `sapply()` 
+* `tapply()`
+
+The entire collection of `apply()` can be considered a substitute for a loop, and it is for use with ***homogeneous matrices***. 
+
+*If the `apply()` function is performed using a data frame or any other kind of object, the function will first coerce it to a matrix and then perform its operation.*
+
+### Apply()
+*syntax*: `apply(X, margin, function)`
+
+* `x`: an array or matrix
+* `margin`: a value between 1 and 2 in order to decide where to apply the function [ 1- row; 2- column]
+
+```{R}
+# sum elements along columns
+m <- matrix(C <- (1:10),  
+            nrow = 5, 
+            ncol = 6) 
+m 
+a_m <- apply(m, 2, sum) 
+a_m
+```
+
+### Lapply()
+Used for operations on lists, returns lists of same size. 
+
+*syntax*: `lapply(X, func)`
+
+* `X`: the list or a vector or an object
+* `func`: the function to apply
+
+```{R}
+movies <- c("SPIDERMAN", "BATMAN", 
+            "AVENGERS", "FROZEN") 
+movies 
+movies_lower <- lapply(movies, 
+                       tolower) 
+str(movies_lower)
+```
+
+### Sapply()
+The `sapply()` function takes any vector or object or list and performs the exact operation as  `lapply()` 
+
+*syntax*: `Sapply(X, func)`
+
+* `X`: the list or a vector or an object
+* `func`: the function to apply
+
+### Tapply()
+
+The `tapply()` function is used to calculate the mean, median, maximum, and so on, or to perform a function on each and every factor of the variable. 
+
+*syntax*: `tapply(X, index, func = NULL)`
+
+* `X`: an object or vector
+* `index`: a list of factor
+* `func`: the function to apply
+
+```{R}
+data(iris) 
+tapply(iris$Sepal.Width,  
+       iris$Species, 
+       median)
+```
+ 
+## aggregate() function for data munging
+
+In R, `aggregate()` aggregates the input data frame by applying a function on each column of a sub-data frame.
+
+**Note**: In order to include multiple functions inside the aggregate() function, we need to use the `plyr` package.
+
+*syntax*: `aggregate(formula, data, function)`
+
+* `formula`: the variable(s) of the input data frame we want to apply functions on.
+* `dat`a`: the data that we want to use for group by operation.
+* `function`: the function or calculation to be applied.
+
+```{R}
+# Aggregate values of assets along “asset.class” and “rating” columns
+assets <- data.frame( 
+  asset.class = c("equity", "equity", 
+                  "equity", "option", 
+                  "option", "option", 
+                  "bond", "bond"), 
+       rating = c("AAA", "A", "A", 
+                  "AAA", "BB", "BB", 
+                  "AAA", "A"), 
+counterparty.a = c(runif(3), rnorm(5)), 
+counterparty.b = c(runif(3), rnorm(5)), 
+counterparty.c = c(runif(3), rnorm(5))) 
+assets 
+exposures <- aggregate( 
+  x = assets[c("counterparty.a",  
+               "counterparty.b", 
+               "counterparty.c")], 
+ by = assets[c("asset.class", "rating")], 
+ FUN = function(market.values){ 
+ sum(pmax(market.values, 0)) 
+                       }) 
+print(exposures)
+```
+
+## The plyr package for data munging 
+The `plyr` package is used for splitting, applying, and combining data. For data munging, the two main `plyr` functions are `ddply()` and `llply()`. 
+
+### ddply()
+For each subset of a given data frame, the `ddply()` applies a function and then combine the result.
+
+*syntax*:`ddply(.data, .variables, .fun = NULL, …, .progress = “none”, .inform = FALSE, drop = TRUE, parallel = FALSE, paropts = NULL)`
+
+* `data`: the data frame that is to be processed
+* `variable`: the variable based on which it will split the data frame
+* `fun`: the function to be applied
+* `…`: other arguments that are passed to fun
+* `progress`: name of the progress bar
+* `inform`: whether to produce any informative error message
+* `drop`: combination of variables that is not in the input data frame should be preserved or dropped.  
+* `parallel`: whether to apply function parallel
+* `paropts`: list of extra or additional options passed
+
+```{R}
+library(plyr) 
+dfx <- data.frame( 
+  group = c(rep('A', 8),  
+            rep('B', 15),  
+            rep('C', 6)), 
+  sex = sample(c("M", "F"), 
+               size = 29, 
+               replace = TRUE), 
+  age = runif(n = 29, 
+              min = 18, 
+              max = 54) 
+) 
+  
+ddply(dfx, .(group, sex), summarize, 
+      mean = round(mean(age), 2), 
+      sd = round(sd(age), 2))
+```
+
+### llply()
+The `llply()` is similar to `ddply()` but is best for for lists.
+
+*syntax*: `llply(.data, .fun = NULL, …, .progress = “none”, .inform = FALSE, parallel = FALSE, paropts = NULL)`
+
+```{R}
+library(plyr) 
+x <- list(a = 1:10, beta = exp(-3:3),  
+          logic = c(TRUE, FALSE, 
+                    FALSE, TRUE)) 
+llply(x, mean) 
+llply(x, quantile, probs = 1:3 / 4)
+```
+
+## The dplyr() package for data munging 
+The `dplyr` package provides a variety of simple tools that allow a variety of flexible data manipulations. 
+ 
+* `arrange()` to change row order
+* `filter()` to pick cases depending on their value
+* `mutate()` to add new variables
+* `select()` to select variables by name
+* `summarize()` summarize
+
+`import.package(dplyr)`
+`library(dplyr)` 
+
+### arrange() 
+
+```{R}
+library(magrittr)
+library(dplyr)
+```
+
+```{R}
+starwars %>% 
+  arrange(desc(mass)) 
+```
+
+### filter() 
+
+```{R}
+starwars %>%  
+    filter(species == "Droid") 
+```
+### mutate()  
+
+```{R}
+starwars %>% 
+    mutate(name,  
+    bmi = mass / ((height / 100)  ^ 2)) %>%  
+    select(name:mass, bmi) 
+```
+
+### select()
+
+```{R}
+starwars %>%  
+    select(name, ends_with("color")) 
+```
+
+### summarise() 
+
+```{R}
+starwars %>% group_by(species) %>%  
+  summarise(n = n(), 
+  mass = mean(mass, na.rm = TRUE)) %>% 
+  filter(n > 1)
+```
+
+**As always for all matters R, see the online documentation for additional details**
+
+*For a list of all course source materials and references, please see the Course GitHub Repo `Readme.md`*  
+
+## Next lesson: 4.2 Data Frame Manipulations & Basic Data Visualization in R
