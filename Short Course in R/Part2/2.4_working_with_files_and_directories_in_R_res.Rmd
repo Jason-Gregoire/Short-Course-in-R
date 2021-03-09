@@ -159,7 +159,7 @@ Permissions in R consist of three groupings:
 * what someone in a group can do to the file
 * what anyone (sometimes referred to as other) can do 
 
-Acess for `owner`, `group member`, or `others` include `read`, `write`, or `execute`
+Access for `owner`, `group member`, or `others` include `read`, `write`, or `execute`
 
 ```{R}
 fs::file_create("pa.txt", mode = "777")

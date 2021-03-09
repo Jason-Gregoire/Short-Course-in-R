@@ -292,7 +292,7 @@ print(result_add)
 result_sub <- matrix1 - matrix2
 print(result_sub)
 
-# Multification
+# Multiplication
 result_mul <- matrix1 * matrix2
 print(result_mul)
 
@@ -384,7 +384,7 @@ A data frame can be *expanded* by adding columns and rows.
 **Add Columns** with a column vector using a new column name.
 
 ```{R}
-# Add the "dept" coulmn
+# Add the "dept" column
 emp.data$dept <- c("IT","Operations","IT","HR","Finance")
 v <- emp.data
 print(v)

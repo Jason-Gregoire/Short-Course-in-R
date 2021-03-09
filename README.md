@@ -8,31 +8,52 @@ The short course is composed of four parts:
 
 * **Part1**
 
-  1.1_intro+basics in R rev
-
-  1.2_vectors & strings in R rev
-
-  1.3_Lists_Arrays_Matrices_Arrays_Factors_&_Data_Frames
+  1.1: Introduction and Basics of R 
+  
+  1.2: Vectors and Strings in R
+  
+  1.3: Lists, Arrays, Matrices, Arrays, Factors, & Data Frames in R
 
 * **Part2**
 
-  2.1_Functions_in_R
-
-  2.2_namespace_import_in_R
-
-  2.3_Working_with_data_files_in_R
-
-  2.4_Workign_with_Files_and_Directories_in_R
+  2.1: Functions in R
+  
+  2.2: Packages, Variable Scope, and Namespace in R
+  
+  2.3: Working with Data Files in R
+  
+  2.4: Working with Files and Directories in R
 
 * **Part4**
 
-  4.1_Data_Analysis_in_R-Dataframes
-
-  4.2_Data _ Frame _ Manipulations_&_Basic _Data_Visualization _in_R
-
-  4.3_Access_and_Use_ExternalDBs_with_SQL_in_R
+  4.1: Data Analysis in R - Data Frames
+  
+  4.2 Data Frame Manipulations & Basic Data Visualization in R
+  
+  4.3: Access and Use ExternalDBs with SQL in R
 
 **Note**: Naming approach is based on CY3650 modules. **__There is no Part3__**
+
+## Course Environemnt:
+
+The R markdown files are best reviewed and manipulated in R's IDE, R Studio.
+
+* **Download R Studio**: https://rstudio.com/products/rstudio/download/
+
+### R Packages
+
+The Short Course in R requires installation of several R Packages:
+
+* `plyr`
+* `xlsx`
+* `tidyverse`
+* `devtools`
+* `readr`
+* `dbplyr`
+* `dplyr`
+* `RSQLite`
+* `Hmisc`
+* `fs`
 
 ## Short Course in R References and Source Material
 

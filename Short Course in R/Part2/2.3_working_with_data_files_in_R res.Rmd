@@ -200,7 +200,7 @@ myFile = read.delim(file.choose(), header = FALSE) # run in R-Studio
 ### Reading one line at a time
 `read_lines()` is used for the reading line of your own choice whether it’s one or two or ten lines at a time. To use this method we have to import `readr` package.
 
-*syntx*: `read_lines(file, skip = 0, n_max = -1L)`
+*syntax*: `read_lines(file, skip = 0, n_max = -1L)`
 
 * `file`: file path
 * `skip`: Number of lines to skip before reading data

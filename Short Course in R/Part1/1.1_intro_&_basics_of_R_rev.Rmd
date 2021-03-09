@@ -25,10 +25,10 @@ Contact: jason.gregoire@nps.edu
 
 ### There are lots of online resources for learning R
 
-* Offical 'R' Foundation: https://www.r-project.org/ 
+* Official 'R' Foundation: https://www.r-project.org/ 
 * Comprehensive R Archive Network (CRAN): https://cran.r-project.org/
-  + Download the R languiage and basic Command-Line Envrinoment
-* The Offical R-Manauals: https://cran.r-project.org/manuals.html
+  + Download the R language and basic Command-Line Environment
+* The Official R-Manuals: https://cran.r-project.org/manuals.html
 * R Markdown Cheatsheet!! https://rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf
 * See reference for all source material for this short course within its GitHub readme.md
 
