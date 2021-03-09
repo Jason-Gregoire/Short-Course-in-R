@@ -6,22 +6,31 @@ The goal of short course in R is to provide students of *CY3650 Cyber Data Manag
 ## Short Course Struture
 The short course is composed of four parts:
 
-* Part1
+* **Part1**
 
-...*
-...*
-...*
-* Part2
+  1.1_intro+basics in R rev
 
-...*
-...*
-...*
-...*
-* Part4
+  1.2_vectors & strings in R rev
 
-...*
-...*
-...*
+  1.3_Lists_Arrays_Matrices_Arrays_Factors_&_Data_Frames
+
+* **Part2**
+
+  2.1_Functions_in_R
+
+  2.2_namespace_import_in_R
+
+  2.3_Working_with_data_files_in_R
+
+  2.4_Workign_with_Files_and_Directories_in_R
+
+* **Part4**
+
+  4.1_Data_Analysis_in_R-Dataframes
+
+  4.2_Data _ Frame _ Manipulations_&_Basic _Data_Visualization _in_R
+
+  4.3_Access_and_Use_ExternalDBs_with_SQL_in_R
 
 **Note**: Naming approach is based on CY3650 modules. **__There is no Part3__**
 
@@ -48,7 +57,7 @@ The short course is composed of four parts:
 * http://www.sthda.com/english/wiki/reading-data-from-txt-csv-files-r-base-functions
 * https://www.learnbyexample.org/r-functions/
 * https://towardsdatascience.com/cheat-sheet-for-python-dataframe-r-dataframe-syntax-conversions-450f656b44ca
-* tps://www.r-bloggers.com/2017/05/r-vs-python-different-similarities-and-similar-differences/
+* https://www.r-bloggers.com/2017/05/r-vs-python-different-similarities-and-similar-differences/
 * https://www.google.com/amp/s/www.r-bloggers.com/2017/05/r-vs-python-different-similarities-and-similar-differences/amp/
 * https://www.datasciencemadesimple.com/range-function-in-r/#:~:text=%20Range%20Function%20in%20R%20%E2%80%93%20range%20%28%29,also%20accomplished%20using%20range%20%28%29%20function.%20More%20
 * https://www.r-bloggers.com/2016/11/examine-a-data-frame-in-r-with-7-basic-functions/
@@ -65,17 +74,3 @@ The short course is composed of four parts:
 #### Referenced Video Introduction Course in R
 
 * https://www.youtube.com/watch?v=NVyOEwOJgNQ&t=7171s
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
