@@ -166,8 +166,8 @@ Calculations across array elements using apply()
 
 ```{R}
 # Use apply() to calculate the sum of the rows across all the matrices
-result <- apply(new.array, c(1), sum) 
-print(result)
+result2 <- apply(result, c(1), sum) 
+print(result2)
 ```
 
 ## Factors
@@ -354,7 +354,7 @@ A *summary* of a data frame can be obtained applying `summary()`
 print(summary(emp.data))  
 ```
 
-### Data Frame Data Extraction
+### Data frame data extraction
 
 Extract data from a data frame using column names
 

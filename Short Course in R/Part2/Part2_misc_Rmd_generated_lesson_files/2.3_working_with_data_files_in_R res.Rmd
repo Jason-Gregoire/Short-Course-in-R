@@ -54,9 +54,9 @@ Using `file.create()`, a new file can be created or truncated if it already exis
 
 ```{R}
 # create an empty .txt, .docx, .csv file
-`file.create("new_text_file.txt")`
-`file.create("new_word_file.docx")`
-`file.create("new_csv_file.csv")`
+file.create("new_text_file.txt")
+file.create("new_word_file.docx")
+file.create("new_csv_file.csv")
 # If not path is provided, R defaults to write files to the current "working" directory (CWD)
 ```
 
@@ -241,7 +241,7 @@ R provides various methods that one can read data in a tabular format.
 * `dec`: the character used in the file for decimal points.
 
 ```{R}
-myData = read.table("new.csv.file.csv")  
+myData = read.table("new_csv_file.csv")  
 print(myData) 
 ```
 
@@ -258,7 +258,7 @@ print(myData)
 * `dec`: the character used in the file for decimal points.
 
 ```{R}
-myData = read.csv("new.csv.file.csv")  
+myData = read.csv("new_csv_file.csv")  
 print(myData) 
 ```
 
@@ -272,7 +272,7 @@ print(myData)
 
 ```{R}
 library(readr) 
-myData = read_csv("new.csv.file.csv", col_names = TRUE)  
+myData = read_csv("new_csv_file.csv", col_names = TRUE)  
 print(myData) 
 ```
 
