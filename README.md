@@ -64,32 +64,29 @@ The Short Course in R requires installation of several R Packages:
 
 ### Web-based Shourt Course Source Material
 
-* https://www.tutorialspoint.com/r/r_data_types.htm
-* http://www.sthda.com/english/wiki/reading-data-from-txt-csv-files-r-base-functions
-* https://www.geeksforgeeks.org/scope-of-variable-in-r/
-* https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures/
-* https://swcarpentry.github.io/r-novice-inflammation/
+* http ://www.sthda.com/english/wiki/reading-data-from-txt-csv-files-r-base-functions
+* https://cran.r-project.org/web/packages/fs/fs.pdf
+* https://datacarpentry.org/R-ecology-lesson/05-r-and-databases.html
 * https://datatofish.com/r-jupyter-notebook/
+* https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+* https://peytonmccullough.com/post/resolving-name-conflicts-in-r/
+* https://statisticsglobe.com/r-dplyr-join-inner-left-right-full-semi-anti
 * https://swcarpentry.github.io/r-novice-inflammation/11-supp-read-write-csv/index.html
+* https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures/
+* https://towardsdatascience.com/cheat-sheet-for-python-dataframe-r-dataframe-syntax-conversions-450f656b44ca
+* https://www.datacamp.com/community/tutorials/r-packages-guide
+* https://www.datasciencemadesimple.com/range-function-in-r/#:~:text=%20Range%20Function%20in%20R%20%E2%80%93%20range%20%28%29,also%20accomplished%20using%20range%20%28%29%20function.%20More%20
+* https://www.dezyre.com/recipes/what-is-namespace-r
 * https://www.geeksforgeeks.org/file-handling-in-r-programming/?ref=lbp
 * https://www.geeksforgeeks.org/reading-files-in-r-programming/?ref=lbp
-* https://www.tutorialspoint.com/r/r_csv_files.htm
-* http://www.sthda.com/english/wiki/reading-data-from-txt-csv-files-r-base-functions
-* https://www.learnbyexample.org/r-functions/
-* https://towardsdatascience.com/cheat-sheet-for-python-dataframe-r-dataframe-syntax-conversions-450f656b44ca
-* https://www.r-bloggers.com/2017/05/r-vs-python-different-similarities-and-similar-differences/
+* https://www.geeksforgeeks.org/scope-of-variable-in-r/
 * https://www.google.com/amp/s/www.r-bloggers.com/2017/05/r-vs-python-different-similarities-and-similar-differences/amp/
-* https://www.datasciencemadesimple.com/range-function-in-r/#:~:text=%20Range%20Function%20in%20R%20%E2%80%93%20range%20%28%29,also%20accomplished%20using%20range%20%28%29%20function.%20More%20
-* https://www.r-bloggers.com/2016/11/examine-a-data-frame-in-r-with-7-basic-functions/
-* https://www.dezyre.com/recipes/what-is-namespace-r
-* https://peytonmccullough.com/post/resolving-name-conflicts-in-r/
-* https://www.datacamp.com/community/tutorials/r-packages-guide
 * https://www.inwt-statistics.com/read-blog/using-modules-in-r.html
+* https://www.learnbyexample.org/r-functions/
 * https://www.r-bloggers.com/2016/11/examine-a-data-frame-in-r-with-7-basic-functions/
-* https://cran.r-project.org/web/packages/fs/fs.pdf
-* https://statisticsglobe.com/r-dplyr-join-inner-left-right-full-semi-anti 
-* https://datacarpentry.org/R-ecology-lesson/05-r-and-databases.html
-* https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+* https://www.r-bloggers.com/2017/05/r-vs-python-different-similarities-and-similar-differences/
+* https://www.tutorialspoint.com/r/r_csv_files.htm
+* https://www.tutorialspoint.com/r/r_data_types.htm
 
 #### Referenced Video Introduction Course in R
 
