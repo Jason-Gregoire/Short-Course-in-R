@@ -51,16 +51,8 @@ The R markdown files are best reviewed and manipulated in R's IDE, R Studio.
 
 The Short Course in R requires installation of several R Packages:
 
-* `plyr`
-* `xlsx`
-* `tidyverse`
-* `devtools`
-* `readr`
-* `dbplyr`
-* `dplyr`
-* `RSQLite`
-* `Hmisc`
-* `fs`
+* `plyr` `xlsx` `tidyverse` `devtools` `readr` 
+* `dbplyr` `dplyr` `RSQLite` `Hmisc` `fs`
 
 ## Short Course in R References and Source Material
 
